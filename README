@@ -1,16 +1,35 @@
 NAME
-    Dancer::Logger::PSGI -
+    Dancer::Logger::PSGI - PSGI logger handler for Dancer
 
 SYNOPSIS
-      use Dancer::Logger::PSGI;
+    In your Dancer's configuration file:
+
+        logger: PSGI
+
+    In your application
+
+        warning "this is a warning"
+
+    In your app.psgi
+
+        $app = builder { enable "ConsoleLogger"; $app; }
+
+    With Plack::Middleware::ConsoleLogger, all your log will be send to the
+    javascript console of your browser.
 
 DESCRIPTION
-    Dancer::Logger::PSGI is
+    This class is an interface between your Dancer's application and
+    psgix.logger. Message will be logged in whatever logger you decided to
+    use in your Plack handler. If no logger is defined, nothing will be
+    logged.
 
 AUTHOR
     franck cuny <franck@lumberjaph.net>
 
 SEE ALSO
+    Plack::Middleware::ConsoleLogger, Plack::Middleware::NullLogger,
+    Plack::Middleware::Log4perl.
+
 LICENSE
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
