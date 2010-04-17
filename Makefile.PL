@@ -3,7 +3,9 @@ name 'Dancer-Logger-PSGI';
 all_from 'lib/Dancer/Logger/PSGI.pm';
 readme_from 'lib/Dancer/Logger/PSGI.pm';
 
-# requires '';
+requires 'Plack';
+requires 'Plack::Middleware::ConsoleLogger';
+requires 'Test::TCP';
 
 tests 't/*.t';
 
