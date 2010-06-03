@@ -19,7 +19,7 @@ Test::TCP::test_tcp(
         my $request = HTTP::Request->new(GET => "http://127.0.0.1:$port/");
         my $res = $ua->request($request);
         ok($res->is_success, "server responded");
-	like($res->content, qr/this is a warning/, "log message send");
+        like($res->content, qr/this is a warning/, "log message send");
     },
     server => sub {
         my $port = shift;
@@ -30,11 +30,11 @@ Test::TCP::test_tcp(
         setting apphandler => 'PSGI';
         setting port => $port;
         setting access_log => 0;
-	setting logger => "PSGI";
+    setting logger => "PSGI";
 
         get '/' => sub {
             warning "this is a warning";
-	    return "<html><body>this is a test</body></html>";
+        return "<html><body>this is a test</body></html>";
         };
 
         my $app = sub {
@@ -42,8 +42,8 @@ Test::TCP::test_tcp(
             my $request = Dancer::Request->new($env);
             Dancer->dance($request);
         };
-	$app = builder { enable "ConsoleLogger"; $app };
-	Plack::Loader->auto(port => $port)->run($app);
+    $app = builder { enable "ConsoleLogger"; $app };
+    Plack::Loader->auto(port => $port)->run($app);
     },
 );
 
