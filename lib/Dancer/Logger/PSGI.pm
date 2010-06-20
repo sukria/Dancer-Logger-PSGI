@@ -14,11 +14,14 @@ sub init {}
 
 sub _log {
     my ( $self, $level, $message ) = @_;
+    my $full_message = $self->format_message($level => $message);
+    chomp $full_message;
+
     my $request = Dancer::SharedData->request;
     if ($request->{env}->{'psgix.logger'}) {
         $request->{env}->{'psgix.logger'}->(
             {   level   => $level,
-                message => $self->format_message($level => $message)
+                message => $full_message,
             }
         );
     }
